@@ -12,7 +12,8 @@ const props = defineProps({
     productos: Array,
 });
 
-const products = props.productos
+const products = props.productos;
+const vacio = products[0].id;
 const comprar = (id) => {
     Swal.fire({
         title: '¿Desea hacer esta compra?',
@@ -43,6 +44,7 @@ const comprar = (id) => {
         }
     })
 }
+
 </script>
 <script>
 
@@ -63,36 +65,38 @@ const comprar = (id) => {
                 <Link v-if="canRegister" :href="route('register')"
                     class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Registrarse</Link>
             </template>
+
         </div>
+        <div class="flex justify-center ...">
+            <div class="bg-white">
+                <div v-show="vacio < 0">
+                    <h1 class="text-3xl	">Aquí se veran los productos</h1>
+                </div>
+                <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                    <div
+                        class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                        <div v-for="product in products" :key="product.id" class="group">
+                            <div
+                                class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+                                <img src="img/cafe.jpg"
+                                    class="w-full h-full object-center object-cover group-hover:opacity-75" />
+                            </div>
+                            <h3 class="mt-4 text-sm text-gray-700">
+                                {{ product.pro_nombre }}
+                            </h3>
+                            <p class="mt-1 text-lg font-medium text-gray-900">
+                                {{ product.pro_precio }}
+                            </p>
 
-        <div class="bg-white">
-            <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-                <h2 class="sr-only">Products</h2>
-
-                <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    <div v-for="product in products" :key="product.id" class="group">
-                        <div
-                            class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-                            <img src="img/cafe.jpg"
-                                class="w-full h-full object-center object-cover group-hover:opacity-75" />
+                            <button @click="comprar(product.id)" type="submit"
+                                className="mt-3 w-1/3 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border duration-700 border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-400 hover:bg-emerald-700">
+                                comprar
+                            </button>
                         </div>
-                        <h3 class="mt-4 text-sm text-gray-700">
-                            {{ product.pro_nombre }}
-                        </h3>
-                        <p class="mt-1 text-lg font-medium text-gray-900">
-                            {{ product.pro_precio }}
-                        </p>
-
-                        <button @click="comprar(product.id)" type="submit"
-                            className="mt-3 w-1/3 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border duration-700 border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-400 hover:bg-emerald-700">
-                            comprar
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
 
 
