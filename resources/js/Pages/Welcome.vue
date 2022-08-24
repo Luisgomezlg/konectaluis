@@ -13,7 +13,8 @@ const props = defineProps({
 });
 
 const products = props.productos;
-const vacio = products[0].id;
+const vacio = products;
+const count = vacio.length;
 const comprar = (id) => {
     Swal.fire({
         title: '¿Desea hacer esta compra?',
@@ -69,7 +70,7 @@ const comprar = (id) => {
         </div>
         <div class="flex justify-center ...">
             <div class="bg-white">
-                <div v-show="vacio < 0">
+              <div v-show="count <= 0">
                     <h1 class="text-3xl	">Aquí se veran los productos</h1>
                 </div>
                 <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
